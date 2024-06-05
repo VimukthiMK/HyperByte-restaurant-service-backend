@@ -55,9 +55,18 @@ export const deleteRestaurantById = async (req, res) => {
 
 // List all restaurants
 export const getAllRestaurants = async (req, res) => {
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 8
+    const skip = (page - 1) * limit
     try {
-        const restaurants = await Restaurant.find()
-        res.json(restaurants)
+        const restaurants = await Restaurant.find().skip(skip).limit(limit)
+        const total = await Restaurant.countDocuments()
+        res.status(200).json({
+            total,
+            page,
+            limit,
+            restaurants
+          })
     } catch (error) {
         res.status(500).json({ message: 'Failed to retrieve restaurants' })
     }
