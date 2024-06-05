@@ -1,5 +1,6 @@
 import express from "express"
 import dotenv from "dotenv"
+import cors from "cors"
 import DbConfig from "./config/db.config.js"
 
 import RestaurantRoute from './routes/restaurant.route.js'
@@ -17,7 +18,10 @@ DbConfig()
 const port = process.env.PORT
 
 // Parse JSON bodies
-app.use(express.json());
+app.use(express.json())
+
+// CORS Origin Middleware
+app.use(cors({ origin: process.env.CLIENT_URL}))
 
 // API Routes
 app.use("/api/restaurants", RestaurantRoute)
