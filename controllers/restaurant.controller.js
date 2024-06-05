@@ -20,7 +20,7 @@ export const getRestaurantById = async (req, res) => {
         if (!restaurant) {
             return res.status(404).json({ message: 'Restaurant not found' })
         }
-        res.json(restaurant)
+        res.status(200).json(restaurant)
     } catch (error) {
         res.status(500).json({ message: 'Failed to retrieve restaurant' })
     }
@@ -34,7 +34,7 @@ export const updateRestaurantById = async (req, res) => {
         if (!restaurant) {
             return res.status(404).json({ message: 'Restaurant not found' })
         }
-        res.json(restaurant)
+        res.status(200).json({message:'Restaurant Updated successfully!'})
     } catch (error) {
         res.status(500).json({ message: 'Failed to update restaurant' })
     }
@@ -47,7 +47,7 @@ export const deleteRestaurantById = async (req, res) => {
         if (!restaurant) {
             return res.status(404).json({ message: 'Restaurant not found' })
         }
-        res.json({ message: 'Restaurant deleted successfully' })
+        res.status(200).json({ message: 'Restaurant deleted successfully' })
     } catch (error) {
         res.status(500).json({ message: 'Failed to delete restaurant' })
     }
@@ -55,9 +55,18 @@ export const deleteRestaurantById = async (req, res) => {
 
 // List all restaurants
 export const getAllRestaurants = async (req, res) => {
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 8
+    const skip = (page - 1) * limit
     try {
-        const restaurants = await Restaurant.find()
-        res.json(restaurants)
+        const restaurants = await Restaurant.find().skip(skip).limit(limit)
+        const total = await Restaurant.countDocuments()
+        res.status(200).json({
+            total,
+            page,
+            limit,
+            restaurants
+          })
     } catch (error) {
         res.status(500).json({ message: 'Failed to retrieve restaurants' })
     }
