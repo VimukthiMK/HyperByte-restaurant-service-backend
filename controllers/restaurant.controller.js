@@ -4,11 +4,17 @@ import Restaurant from '../models/restaurant.model.js'
 export const createRestaurant = async (req, res) => {
     const { name, address, telephone } = req.body
     try {
+        // Check for duplicate phone number
+        const existingRestaurant = await Restaurant.findOne({ telephone })
+        if (existingRestaurant) {
+            return res.status(400).json({ message: 'A restaurant with this telephone number already exists' })
+        }
         const restaurant = new Restaurant({ name, address, telephone })
         await restaurant.save()
-        res.status(201).json({message:'Restaurant Created successfully!'})
+
+        res.status(201).json({ message: 'Restaurant created successfully!' })
     } catch (error) {
-        res.status(500).json({ message: 'Failed to create restaurant'})
+        res.status(500).json({ message: 'Failed to create restaurant' })
     }
 }
 

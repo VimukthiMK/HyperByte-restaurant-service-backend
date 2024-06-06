@@ -17,7 +17,8 @@ const restaurantSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 10,
-        maxlength: 15
+        maxlength: 15,
+        unique: true // Telephone number must be unique
     }
 }, 
 {
