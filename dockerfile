@@ -19,7 +19,7 @@ COPY . .
 # Set environment variables
 ENV PORT=8000
 ENV DATABASE_URL="mongodb+srv://DBUser:W1kiqOFmzvRloAs5@cluster0.o1mcgm4.mongodb.net/ResturantService?retryWrites=true&w=majority&appName=Cluster0"
-ENV CLIENT_URL = http://localhost:5173
+ENV CLIENT_URL=http://localhost:5173
 
 # Expose the port the app runs on
 EXPOSE 8000

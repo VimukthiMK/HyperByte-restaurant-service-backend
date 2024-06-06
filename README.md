@@ -13,7 +13,7 @@ A RESTful API for a restaurant service application.
 
 3. **Navigate to the directory containing the application**:
     ```sh
-    cd path/to/Hyperbyte-restaurant-service-backend
+    cd path/to/HyperByte-restaurant-service-backend
     ```
 
 4. **Build the Docker Image**:
@@ -26,4 +26,4 @@ A RESTful API for a restaurant service application.
     docker run -p 8000:8000 backend-app
     ```
 
-Open your web browser and navigate to [http://localhost:8000](http://localhost:8000) to verify that Backend application is running inside the Docker container.
+Backend application is running on [http://localhost:8000](http://localhost:8000)  inside the Docker container.
